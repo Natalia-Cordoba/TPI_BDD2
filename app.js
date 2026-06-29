@@ -67,10 +67,11 @@ async function main() {
         console.log("\n--- LEYENDO DOCUMENTOS ACTIVOS ---");
         const usuariosActivos = await leerActivos(db, "usuarios");
         console.log(`Usuarios activos encontrados: ${usuariosActivos.length}`);
+        console.log(usuariosActivos);
 
         const obrasActivas = await leerActivos(db, "obras");
         console.log(`Obras activas encontradas: ${obrasActivas.length}`);
-
+        console.log(usuariosActivos);
     }
     catch (error) {
         // Manejo de errores
