@@ -19,3 +19,25 @@ export async function leerActivos(db, coleccion){
         .toArray();
 
 }
+
+export async function actualizarDocumento(db, coleccion, filtro, nuevosDatos) {
+    const resultado =
+        await db
+            .collection(coleccion)
+            .updateOne(
+                filtro,
+                { $set: nuevosDatos }
+            );
+    return resultado.modifiedCount;
+}
+
+export async function desactivarDocumento(db, coleccion, filtro) {
+    const resultado =
+        await db
+            .collection(coleccion)
+            .updateOne(
+                filtro,
+                { $set: { activo: false } }
+            );
+    return resultado.modifiedCount;
+}

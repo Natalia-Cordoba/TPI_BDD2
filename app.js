@@ -1,7 +1,6 @@
 import dotenv from "dotenv";
 import { MongoClient } from "mongodb";
-import { insertarDocumento, leerActivos } from "./crud.js";
-
+import { insertarDocumento, leerActivos, actualizarDocumento, desactivarDocumento } from "./crud.js";
 dotenv.config();
 
 // Se obtienen las variables del archivo .env
@@ -72,6 +71,24 @@ async function main() {
         const obrasActivas = await leerActivos(db, "obras");
         console.log(`Obras activas encontradas: ${obrasActivas.length}`);
         console.log(usuariosActivos);
+        // Ejecución del UPDATE
+console.log("\n--- ACTUALIZANDO DOCUMENTO ---");
+const modificados = await actualizarDocumento(
+    db,
+    "obras",
+    { _id: idObra },
+    { precio_usd: 900, disponible_venta: false }
+);
+console.log(`Documentos modificados: ${modificados}`);
+
+// Ejecución del DELETE (Baja Lógica)
+console.log("\n--- DESACTIVANDO DOCUMENTO (BAJA LÓGICA) ---");
+const desactivados = await desactivarDocumento(
+    db,
+    "usuarios",
+    { _id: idUsuario }
+);
+console.log(`Documentos desactivados: ${desactivados}`);
     }
     catch (error) {
         // Manejo de errores
