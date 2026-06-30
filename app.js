@@ -14,7 +14,14 @@ async function main() {
         await client.connect();
         console.log("Conectado exitosamente a MongoDB Atlas.\n");
         const db = client.db(database);
-
+// Creación de índice único sobre el campo email en la colección usuarios
+     // Evita que se registren dos usuarios con el mismo correo electrónico
+     await db.collection("usuarios").createIndex(
+    { email: 1 },
+    { unique: true }
+     );
+     console.log("Índice único sobre 'email' creado correctamente.");
+     
         // Definición de los documentos
         const nuevoUsuario = {
             nombre: "Agostina Méndez",
